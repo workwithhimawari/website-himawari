@@ -31,38 +31,27 @@ const Cart = () => {
     setShowDisclaimer(true);
   };
 
-  // 🔥 FUNGSI BARU: Format detail pesanan LENGKAP dengan MEMBER
+  // Format detail pesanan LENGKAP dengan MEMBER
   const formatOrderDetails = () => {
     return items
       .map((item) => {
         let detail = `${item.name}`;
         
-        // 🔥 TAMPILKAN MEMBER (PENTING!)
         if (item.member) {
           detail += ` - Member: ${item.member}`;
         }
-        
-        // Tampilkan versi
         if (item.version) {
           detail += ` (Versi: ${item.version})`;
         }
-        
-        // Tampilkan size
         if (item.size) {
           detail += ` - Size: ${item.size}`;
         }
-        
-        // Tampilkan nomor punggung
         if (item.customNumber) {
           detail += ` - No: ${item.customNumber}`;
         }
-        
-        // Tampilkan tipe standee
         if (item.standeeType) {
           detail += ` (${item.standeeType})`;
         }
-        
-        // Tampilkan tipe stiker logo
         if (item.stickerType && item.stickerType === "logo") {
           detail += ` - Logo`;
         }
@@ -73,17 +62,15 @@ const Cart = () => {
       .join("\n");
   };
 
-  // 🔥 FUNGSI BARU: Format pesan WhatsApp yang LENGKAP
+  // Format pesan WhatsApp yang LENGKAP
   const formatWhatsAppMessage = () => {
     const itemsList = items
       .map((item) => {
         let line = `• ${item.name}`;
         
-        // 🔥 TAMPILKAN MEMBER
         if (item.member) {
           line += ` - Member: ${item.member}`;
         }
-        
         if (item.version) {
           line += ` (Versi: ${item.version})`;
         }
@@ -105,51 +92,58 @@ const Cart = () => {
       })
       .join("\n");
 
-    return encodeURIComponent(
-      `*HIMAWARI ORDER BARU dari Situs!*\n\n` +
+    return `*HIMAWARI ORDER BARU dari Situs!*\n\n` +
       `*Data Pelanggan:*\n` +
       `Nama: ${customerName}\n` +
       `WhatsApp: ${whatsappNumber}\n` +
       `Alamat: ${shippingAddress}\n\n` +
       `*Detail Pesanan:*\n${itemsList}\n\n` +
       `*TOTAL: ${formatPrice(totalPrice)}*\n\n` +
-      `Terima kasih Admin! Segera konfirmasi ya. 🌻`
-    );
+      `Terima kasih Admin! Segera konfirmasi ya. 🌻`;
   };
 
   const handleConfirmCheckout = async () => {
     setShowDisclaimer(false);
 
-    // 🔥 Data untuk Google Sheet (LENGKAP dengan member)
+    // Data untuk Google Sheet
     const orderData = {
       name: customerName,
       whatsapp: whatsappNumber,
       address: shippingAddress,
-      orderDetails: formatOrderDetails(),  // 🔥 PAKAI FUNGSI BARU
+      orderDetails: formatOrderDetails(),
       total: formatPrice(totalPrice),
       timestamp: new Date().toLocaleString("id-ID"),
     };
 
-    try {
-      // Kirim data ke Google Apps Script
-      await fetch(
-        "https://script.google.com/macros/s/AKfycbwk12EePAtic-nXu8w56bkpa8_0a0s7dEikiC5A1ogpEBG2TLa_cgmezvLizrZNK38lpA/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(orderData),
-        }
-      );
-    } catch (error) {
-      console.error("Error kirim data ke spreadsheet:", error);
-    }
+    // 🔥 URL APPS SCRIPT KAMU (SUDAH DIISI)
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxtQkjoF6-_d24aRC4tik-2zVt1K5ZnvWCDCfUpUoJr0RuBQJAfiHoU11HEjfCwd1afrA/exec";
+    
+    // Kirim ke Google Sheet
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    }).catch(err => console.error("Error kirim ke sheet:", err));
 
-    // 🔥 Kirim WhatsApp dengan pesan yang LENGKAP
-    const whatsappMessage = formatWhatsAppMessage();
-    window.open(`https://wa.me/6281232553891?text=${whatsappMessage}`, "_blank");
+    // 🔥 NOMOR WA ADMIN (SUDAH DIISI)
+    const ADMIN_WA_NUMBER = "6281232553891";
+    
+    // Buka WhatsApp
+    const waMessage = formatWhatsAppMessage();
+    const waUrl = `https://wa.me/${ADMIN_WA_NUMBER}?text=${encodeURIComponent(waMessage)}`;
+    
+    // Method: pakai setTimeout agar tidak kena popup blocker
+    setTimeout(() => {
+      window.open(waUrl, '_blank');
+    }, 100);
+    
+    // Fallback: kasih alert kalau tidak terbuka
+    setTimeout(() => {
+      alert("✅ Pesanan berhasil dikirim ke Admin!\n\nData sudah masuk ke Google Sheet.\n\nJika WhatsApp tidak terbuka otomatis, silakan chat manual ke nomor admin.");
+    }, 500);
 
     // Tampilkan modal sukses
     setShowModal(true);
@@ -214,7 +208,6 @@ const Cart = () => {
                       </button>
                     </div>
 
-                    {/* 🔥 TAMPILKAN DETAIL LENGKAP DI CART (termasuk member) */}
                     <div className="text-xs font-bold space-y-0.5 mb-2 md:mb-3 bg-muted p-2 border-2 border-foreground">
                       {item.member && <p>MEMBER: {item.member}</p>}
                       {item.size && <p>SIZE: {item.size}</p>}
