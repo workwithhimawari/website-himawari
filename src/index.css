@@ -1,0 +1,363 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "@fontsource/lexend/400.css";
+@import "@fontsource/lexend/500.css";
+@import "@fontsource/lexend/700.css";
+@import "@fontsource/lexend/900.css";
+
+/* HIMAWARI Neo-Brutalism Design System - AGGRESSIVE */
+
+@layer base {
+  :root {
+    --background: 60 100% 97%;
+    --foreground: 0 0% 0%;
+
+    --card: 60 100% 97%;
+    --card-foreground: 0 0% 0%;
+
+    --popover: 60 100% 97%;
+    --popover-foreground: 0 0% 0%;
+
+    /* Sun Yellow - Primary accent */
+    --primary: 51 100% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    /* Hot Pink secondary */
+    --secondary: 340 100% 65%;
+    --secondary-foreground: 0 0% 0%;
+
+    /* Electric Blue accent */
+    --accent: 200 100% 50%;
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 60 20% 90%;
+    --muted-foreground: 0 0% 30%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 51 100% 50%;
+
+    --radius: 0px;
+
+    /* Neo-Brutalism AGGRESSIVE - Mobile first (smaller) */
+    --shadow-brutal: 4px 4px 0px 0px hsl(0 0% 0%);
+    --shadow-brutal-lg: 6px 6px 0px 0px hsl(0 0% 0%);
+    --shadow-brutal-xl: 8px 8px 0px 0px hsl(0 0% 0%);
+    --shadow-brutal-pressed: 2px 2px 0px 0px hsl(0 0% 0%);
+    --border-brutal: 3px solid hsl(0 0% 0%);
+    --border-brutal-lg: 4px solid hsl(0 0% 0%);
+    --border-brutal-xl: 6px solid hsl(0 0% 0%);
+  }
+
+  /* Desktop - larger borders and shadows */
+  @media (min-width: 768px) {
+    :root {
+      --shadow-brutal: 6px 6px 0px 0px hsl(0 0% 0%);
+      --shadow-brutal-lg: 10px 10px 0px 0px hsl(0 0% 0%);
+      --shadow-brutal-xl: 14px 14px 0px 0px hsl(0 0% 0%);
+      --shadow-brutal-pressed: 3px 3px 0px 0px hsl(0 0% 0%);
+      --border-brutal: 4px solid hsl(0 0% 0%);
+      --border-brutal-lg: 6px solid hsl(0 0% 0%);
+      --border-brutal-xl: 8px solid hsl(0 0% 0%);
+    }
+  }
+
+  .dark {
+    /* Pure black background for OLED */
+    --background: 0 0% 0%;
+    /* Soft off-white text for reduced eye strain */
+    --foreground: 220 9% 96%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 220 9% 96%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 220 9% 96%;
+
+    /* Softer matte gold/yellow - easier on eyes */
+    --primary: 51 100% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    /* Softer pink */
+    --secondary: 330 80% 55%;
+    --secondary-foreground: 0 0% 0%;
+
+    /* Softer cyan accent */
+    --accent: 180 70% 45%;
+    --accent-foreground: 0 0% 0%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 220 9% 70%;
+
+    --destructive: 0 85% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Softer border color for reduced contrast */
+    --border: 220 9% 90%;
+    --input: 220 9% 90%;
+    --ring: 51 100% 50%;
+
+    /* Softer shadows/borders in dark mode - Mobile first */
+    --shadow-brutal: 4px 4px 0px 0px hsl(220 9% 90%);
+    --shadow-brutal-lg: 6px 6px 0px 0px hsl(220 9% 90%);
+    --shadow-brutal-xl: 8px 8px 0px 0px hsl(220 9% 90%);
+    --shadow-brutal-pressed: 2px 2px 0px 0px hsl(220 9% 90%);
+    --border-brutal: 3px solid hsl(220 9% 90%);
+    --border-brutal-lg: 4px solid hsl(220 9% 90%);
+    --border-brutal-xl: 6px solid hsl(220 9% 90%);
+  }
+
+  /* Desktop - larger borders and shadows for dark mode */
+  @media (min-width: 768px) {
+    .dark {
+      --shadow-brutal: 6px 6px 0px 0px hsl(220 9% 90%);
+      --shadow-brutal-lg: 10px 10px 0px 0px hsl(220 9% 90%);
+      --shadow-brutal-xl: 14px 14px 0px 0px hsl(220 9% 90%);
+      --shadow-brutal-pressed: 3px 3px 0px 0px hsl(220 9% 90%);
+      --border-brutal: 4px solid hsl(220 9% 90%);
+      --border-brutal-lg: 6px solid hsl(220 9% 90%);
+      --border-brutal-xl: 8px solid hsl(220 9% 90%);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-lexend antialiased;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 50px,
+        hsl(var(--foreground) / 0.03) 50px,
+        hsl(var(--foreground) / 0.03) 51px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 50px,
+        hsl(var(--foreground) / 0.03) 50px,
+        hsl(var(--foreground) / 0.03) 51px
+      );
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-black tracking-tight uppercase;
+  }
+
+  /* Responsive heading sizes */
+  h1 {
+    @apply text-3xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl;
+  }
+}
+
+@layer components {
+  /* Neo-Brutalism Button Base - AGGRESSIVE with touch targets */
+  .btn-brutal {
+    @apply relative inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 font-black uppercase tracking-wider transition-all duration-75 ease-out text-base md:text-lg min-h-[44px];
+    border: var(--border-brutal-lg);
+    box-shadow: var(--shadow-brutal-lg);
+    transform: rotate(-1deg);
+  }
+
+  .btn-brutal:hover {
+    transform: translate(4px, 4px) rotate(0deg);
+    box-shadow: var(--shadow-brutal-pressed);
+  }
+
+  .btn-brutal:active {
+    transform: translate(6px, 6px) rotate(1deg);
+    box-shadow: none;
+  }
+
+  /* Primary Button Variant */
+  .btn-brutal-primary {
+    @apply btn-brutal bg-primary text-primary-foreground;
+  }
+
+  /* Secondary/Ghost Button Variant */
+  .btn-brutal-secondary {
+    @apply btn-brutal bg-background text-foreground;
+  }
+
+  /* Accent Button */
+  .btn-brutal-accent {
+    @apply btn-brutal bg-secondary text-secondary-foreground;
+  }
+
+  /* Card with brutal shadow */
+  .card-brutal {
+    @apply bg-card text-card-foreground;
+    border: var(--border-brutal-lg);
+    box-shadow: var(--shadow-brutal);
+  }
+
+  .card-brutal-lg {
+    @apply bg-card text-card-foreground;
+    border: var(--border-brutal-xl);
+    box-shadow: var(--shadow-brutal-lg);
+  }
+
+  /* Stacked card effect */
+  .card-brutal-stacked {
+    @apply bg-card text-card-foreground relative;
+    border: var(--border-brutal-lg);
+    box-shadow: var(--shadow-brutal-lg);
+  }
+
+  .card-brutal-stacked::before {
+    content: '';
+    @apply absolute inset-0 bg-primary -z-10;
+    border: var(--border-brutal-lg);
+    transform: translate(8px, 8px) rotate(2deg);
+  }
+
+  /* Input brutal style */
+  .input-brutal {
+    @apply w-full px-4 py-4 bg-background text-foreground font-bold uppercase;
+    border: var(--border-brutal-lg);
+    box-shadow: var(--shadow-brutal);
+  }
+
+  .input-brutal:focus {
+    @apply outline-none;
+    box-shadow: var(--shadow-brutal), 0 0 0 4px hsl(var(--primary));
+  }
+
+  /* Select brutal style */
+  .select-brutal {
+    @apply w-full px-4 py-4 bg-background text-foreground font-bold cursor-pointer appearance-none uppercase;
+    border: var(--border-brutal-lg);
+    box-shadow: var(--shadow-brutal);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 1rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+  }
+
+  .dark .select-brutal {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23fffef0' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  }
+
+  /* Badge brutal */
+  .badge-brutal {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-black uppercase bg-primary text-primary-foreground tracking-wider;
+    border: 3px solid hsl(var(--foreground));
+    box-shadow: 3px 3px 0px 0px hsl(var(--foreground));
+    transform: rotate(-2deg);
+  }
+
+  /* Social button - min touch target */
+  .social-brutal {
+    @apply w-11 h-11 md:w-14 md:h-14 flex items-center justify-center bg-background text-foreground transition-all duration-75 font-black min-w-[44px] min-h-[44px];
+    border: var(--border-brutal-lg);
+    box-shadow: var(--shadow-brutal);
+  }
+
+  .social-brutal:hover {
+    transform: translate(3px, 3px);
+    box-shadow: var(--shadow-brutal-pressed);
+    @apply bg-primary text-primary-foreground;
+  }
+
+  .social-brutal:active {
+    transform: translate(6px, 6px);
+    box-shadow: none;
+  }
+
+  /* Section divider */
+  .divider-brutal {
+    @apply w-full h-4 bg-foreground my-0;
+    background: repeating-linear-gradient(
+      90deg,
+      hsl(var(--foreground)),
+      hsl(var(--foreground)) 20px,
+      hsl(var(--primary)) 20px,
+      hsl(var(--primary)) 40px
+    );
+  }
+
+  /* Marquee text */
+  .marquee-brutal {
+    @apply overflow-hidden whitespace-nowrap;
+  }
+
+  .marquee-brutal-content {
+    @apply inline-block animate-marquee;
+  }
+
+  /* Highlight box */
+  .highlight-brutal {
+    @apply inline-block bg-primary px-2 -rotate-1;
+    box-shadow: 4px 4px 0px 0px hsl(var(--foreground));
+  }
+
+  /* Stamp effect */
+  .stamp-brutal {
+    @apply inline-flex items-center justify-center font-black uppercase tracking-widest;
+    border: 6px solid hsl(var(--foreground));
+    transform: rotate(-12deg);
+    box-shadow: inset 0 0 0 3px hsl(var(--foreground));
+  }
+}
+
+@layer utilities {
+  .text-shadow-brutal {
+    text-shadow: 4px 4px 0px hsl(var(--foreground));
+  }
+
+  .text-shadow-brutal-sm {
+    text-shadow: 2px 2px 0px hsl(var(--foreground));
+  }
+
+  .animate-bounce-brutal {
+    animation: bounce-brutal 0.4s ease-in-out infinite alternate;
+  }
+
+  @keyframes bounce-brutal {
+    from {
+      transform: translateY(0) rotate(-2deg);
+    }
+    to {
+      transform: translateY(-12px) rotate(2deg);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+
+  .rotate-brutal-1 { transform: rotate(-3deg); }
+  .rotate-brutal-2 { transform: rotate(2deg); }
+  .rotate-brutal-3 { transform: rotate(-1deg); }
+
+  .skew-brutal {
+    transform: skewX(-3deg);
+  }
+}
